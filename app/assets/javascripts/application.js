@@ -12,5 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require handlebars-1.1.2
+//= ember-1.7.0
+//= ember-data
 //= require turbolinks
 //= require_tree .
