@@ -69,6 +69,10 @@ App.ReviewsNewController = Ember.Controller.extend({
 });
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend({
+	namespace: 'api',
+	headers: {
+		'Authorization': 'Token token=EMBER-TOKEN'
+	}
 });
 
 App.BookDetailsComponent = Ember.Component.extend({
@@ -78,13 +82,18 @@ App.BookDetailsComponent = Ember.Component.extend({
 	}.property('book.rating')
 });
 
+App.Genre = DS.Model.extend({
+	name: DS.attr(),
+	books: DS.hasMany('book', { async: true })
+});
+
 App.Book = DS.Model.extend({
 	title: DS.attr(),
 	author: DS.attr(),
 	review: DS.attr(),
 	rating: DS.attr('number'),
 	amazon_id: DS.attr(),
-	genre: DS.belongsTo('genre'),
+	genre: DS.belongsTo('genre', { async: true }),
 	url: function() {
 		return "http://www.amazon.com/gp/product/"+this.get('amazon_id')+"/adamfortuna-20";
 	}.property('amazon_id'),
